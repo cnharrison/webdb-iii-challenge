@@ -49,26 +49,26 @@ server.get("/api/cohorts/:id", (req, res) => {
           message: "The cohort with the specified ID doesn't exist"
         });
       }
-      res.status(201).json(post);
+      res.status(201).json(cohort);
     })
-    .catch(err =>
-      res.status(500).send({ error: "The cohort could not be retrieved." })
-    );
+    .catch(err => {
+      res.status(500).send({ error: "The cohort could not be retrieved." });
+    });
 });
 
 server.get("/api/cohorts/:id/students", (req, res) => {
   const { id } = req.params;
-  db.matchStudentsToCohort(id)
-    .then(cohort => {
-      if (!cohort) {
+  db.studentsFromCohort(id)
+    .then(data => {
+      if (!data) {
         res.status(404).json({
           message: "The cohort with the specified ID doesn't exist"
         });
       }
-      res.status(201).json(post);
+      res.status(201).json(data);
     })
     .catch(err =>
-      res.status(500).send({ error: "The students could not be retrieved." })
+      res.status(500).send({ error: "The cohort could not be retrieved." })
     );
 });
 

@@ -8,7 +8,7 @@ module.exports = {
   insert,
   update,
   remove,
-  matchStudentsToCohort
+  studentsFromCohort
 };
 
 function find() {
@@ -37,8 +37,8 @@ function remove(id) {
     .del();
 }
 
-function matchStudentsToCohort(id) {
+function studentsFromCohort(id) {
   return db("students")
-    .innerJoin("cohorts", "students.id", "cohorts.id")
-    .where("cohorts.id", Number(id));
+    .innerJoin("cohorts", "cohorts.id", "students.cohort-id")
+    .where("students.cohort-id", Number(id));
 }
