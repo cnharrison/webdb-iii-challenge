@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
       .integer("cohort-id")
       .unsigned()
       .references("id")
-      .inTable("cohort")
+      .inTable("cohorts")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
   });
