@@ -1,13 +1,14 @@
 const knex = require("knex");
 const knexConfig = require("../knexfile.js");
-const db = knex(knexConfig);
+const db = knex(knexConfig.development);
 
 module.exports = {
   find,
   findById,
   insert,
   update,
-  remove
+  remove,
+  matchStudentsToCohort
 };
 
 function find() {
@@ -34,4 +35,10 @@ function remove(id) {
   return db("cohorts")
     .where("id", Number(id))
     .del();
+}
+
+function matchStudentsToCohort(id) {
+  return db("students")
+    .innerJoin("cohorts", "students.id", "cohorts.id")
+    .where("cohorts.id", Number(id));
 }
